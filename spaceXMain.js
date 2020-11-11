@@ -178,6 +178,6 @@ function outOfGas(){
  * Når raketten roterer så endrer det på akkselerasjon x som vil bevege bakgrunnsbildet i x rettning.
  * Dette må da på et vis gi raketten noen verdier som kan regnes frem til om du kommer i bane eller ei. 
  * 
- * For å komme i bane må akselerasjonen din (eller farten) i X * Y rettning være mer enn 11.000 m/s.
- * Feks: vy * vx**2 >= 11.000 m/s
+ * For å komme i bane må akselerasjonen din (eller farten) i X rettning være mer enn 11.000 m/s, 
+ * samt at du har en viss avstand fra jorden.
  */

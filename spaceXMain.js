@@ -163,8 +163,6 @@ function outOfGas(){
                     falcon9.classList.add("falcon9Class");
                 }, 500);
             }, 50);
-
-            //lage en eller annen animasjon/gif med en eksplosjon
         }
     }
     else{

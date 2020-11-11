@@ -152,13 +152,15 @@ function outOfGas(){
     
         function crash(){
             clearInterval(gravity);
+            const falcon9 = $("falcon9");
+            //Endre dette så jeg slipper setTimeout
             setTimeout(() => {
-                $("falcon9").innerHTML = "";
-                $("falcon9").classList.remove("falcon9Class");
-                $("falcon9").classList.add("explosion");
+                falcon9.innerHTML = "";
+                falcon9.classList.remove("falcon9Class");
+                falcon9.classList.add("explosion");
                 setTimeout(() => {
-                    $("falcon9").classList.remove("explosion");
-                    $("falcon9").classList.add("falcon9Class");
+                    falcon9.classList.remove("explosion");
+                    falcon9.classList.add("falcon9Class");
                 }, 500);
             }, 50);
 

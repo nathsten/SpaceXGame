@@ -1,0 +1,95 @@
+body{
+    background-color: black;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.headerTxt{
+    margin-top: -10px;
+    color: white;
+}
+
+.worldClass{
+    position: relative;
+    border: #2D383A solid 5px;
+    left: calc(45% - 40%);
+    width: 90%;
+    height: 700px;
+    background-image: url("/Images/World\ Stars\ compressed.png");
+    background-position: center;
+    background-size: 2000%;
+    background-position-x: 50%;
+    background-repeat: no-repeat;
+}
+#world{
+    background-position-y: 84.14%;
+    background-position-x: 50%;
+}
+
+.topRocketClass{
+    position: absolute;
+    width: calc(12px*1.5);
+    height: calc(126px*1.5);
+    border: solid black 1px;
+    background-color: whitesmoke;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    overflow: hidden;
+    z-index: 1;
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+}
+
+.falcon9Class{
+    position: absolute;
+    width: calc(12px * 1.5);
+    height: calc(126px * 1.5);
+    left: calc(50% - 20px);
+    bottom: 180px;
+    transform: rotate(0deg);
+}
+
+#engine.førStart{
+    display: none;
+}
+
+#engine.etterStart{
+    position: absolute;
+    width: 350%;
+    height: 40px;
+    bottom: -30px;
+    transform: rotate(-70deg);
+    left: -20px;
+    z-index: 0;
+    background-position: center;
+    background-image: url("Images/rocketGif.gif");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.topRocketClass>p{
+    transform: rotate(90deg) translate(30px);
+    font-size: 1.35em;
+    user-select: none;
+}
+
+.black{
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    background-color: black;
+    bottom: 0px;
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+}
+
+.explosion{
+    position: absolute;
+    bottom: 180px;
+    left: calc(50% - 20px);
+    width: 150px;
+    height: 150px;
+    background-image: url("/Images/explosion.gif");
+    background-size: 100%;
+    background-position: center;
+}

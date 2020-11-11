@@ -63,7 +63,7 @@ function move(){
         if(falcon9Div.fuel >= 0){
             falcon9Div.fuel -= 5;
         }
-    }, 1000);
+    }, 1500);
     
     falcon9Div.y;
     okeY = setInterval(() => {

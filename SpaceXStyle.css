@@ -85,7 +85,7 @@ body{
 
 .explosion{
     position: absolute;
-    bottom: 180px;
+    bottom: 160px;
     left: calc(50% - 20px);
     width: 150px;
     height: 150px;

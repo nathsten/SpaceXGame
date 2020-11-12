@@ -85,18 +85,25 @@ document.addEventListener("keydown", checkArrow)
 //Øker akselerasjonen i X rettning 
 //Må kobles til bakgrunnsbildet som vil både bevege i bestemt X rettning
 //men også rotere svakt. 
+//Bestemmer at farten vx kan ikke være større enn 0.025% pr 100ms eller 
+//mindre enn -0.025% pr 100ms. 
 function AX(ax){
     akkselerasjonX = setInterval(() => {
-        if(falcon9Div.vx <= 0.1){
-            falcon9Div.vx += ax;
-            akselerereX(falcon9Div.vx);
+        falcon9Div.vx += ax;
+        if(falcon9Div.vx > 0 && falcon9Div.vx >= 0.025){
+            falcon9Div.vx = 0.025;
         }
+        if(falcon9Div.vx < 0 && falcon9Div.vx <= -0.025){
+            falcon9Div.vx = -0.025;
+        }
+        akselerereX(falcon9Div.vx);
     }, 100);
 }
 
 function akselerereX(vx){
     falcon9Div.x -= vx;
     world.style.backgroundPositionX = `${falcon9Div.x}%`;
+    // world.style.transform = `rotate(${vx}deg)`; Må ha et annet bakgrunnsbilde
 }
 
 //Hvilke vei i X rettning du vil akselerere

@@ -6,6 +6,7 @@ let okeAkselerasjonY;
 let okeY;
 let gravity;
 let akkselerasjonX;
+// let AX;
 
 class Falcon9{
     vinkel = 0;
@@ -135,7 +136,7 @@ function outOfGas(){
     if(falcon9Div.orbitSuccess !== true){
         clearInterval(okeAkselerasjonY);
         clearInterval(okeY);
-        clearInterval(akkselerasjonX);
+        // clearInterval(akkselerasjonX);
 
         engine.classList.remove("etterStart");
         void engine.offsetWidth;
@@ -159,6 +160,9 @@ function outOfGas(){
     
         function crash(){
             clearInterval(gravity);
+            clearInterval(akkselerasjonX);
+            //Må finne en måte å få backgroundPositionX til å slutte å oppdatere seg etter du har kjesjet..
+            world.style.backgroundPositionX = `${falcon9Div.x}%`;
             const falcon9 = $("falcon9");
             //Endre dette så jeg slipper setTimeout
             setTimeout(() => {

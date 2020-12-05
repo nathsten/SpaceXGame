@@ -15,14 +15,14 @@ body{
     left: calc(45% - 40%);
     width: 90%;
     height: 700px;
-    background-image: url("/Images/World\ Stars\ compressed.png");
+    background-image: url("/Images/SpaceX-game\ space\ compressed.png");
     background-position: center;
     background-size: 2000%;
     background-position-x: 50%;
     background-repeat: no-repeat;
 }
 #world{
-    background-position-y: 84.14%;
+    background-position-y: 41%;
     background-position-x: 50%;
 }
 

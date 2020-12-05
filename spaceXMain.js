@@ -1,40 +1,106 @@
 //@ts-check
 
+/**
+ * @param {string} id
+ * @returns {object}
+ */
 const $ = (id) => document.getElementById(id);
 
-let okeAkselerasjonY;
-let okeY;
-let gravity;
-let akkselerasjonX;
-// let AX;
+const engine = $("engine");
+
+// Globale variabler.
+let accelerationX;
+let accelerationY;
+let moveX;
+let moveY;
+let allIntervals = [];
 
 class Falcon9{
-    vinkel = 0;
-    masse = 150;
+    angle = 0;
+    mass = 100;
     fuel = 100;
-    //Akselerasjon X & Y
-    ax = 0;
-    ay = 0.0005;
-    //Fart X & Y
+    engineOn = false;
+    orbitSuccess = false;
+    div = undefined;
+
+    // Funksjon for å ta av rakketten.
+    takeOff(){
+
+
+
+        engine.classList.remove("førStart");
+        void engine.offsetWidth;
+        engine.classList.add("etterStart");
+    }
+
+    rotate(){
+        this.div.style.transform = `rotate(${this.angle})deg`;
+    }
+}
+
+class Space{
+    x = 0;
+    y = 0;
     vx = 0;
     vy = 0;
-    y = 84.14;
-    x = 50;
-    orbitSuccess = false;
+    ax = 0.0015;
+    ay = 0.0015;
+    rx = 0;
+    ry = 0;
+    div = undefined;
+
+    // Funksjon for å bevege bakgrunnsbildet
+    moveSpaceY(){
+        accelerationY = setInterval(() => {
+            this.vy += this.ay;
+        }, 50);
+        
+        moveY = setInterval(() => {
+            this.y += this.vy;
+            this.div.style.backgroundPositionY = `${this.y}%`;
+        }, 10);
+
+        allIntervals.push(accelerationY, moveY);
+    }
 }
 
 //Lager den slik at raketten får akselerasjonen ax og ay men,  det er på bakgrunnsbildet 
 //det blir utført. 
 
-const world = $("world");
-const engine = $("engine");
-
 // @ts-ignore
-const falcon9Div = new Falcon9($("falcon9"));
+const falcon9 = new Falcon9;
+falcon9.angle = 0;
+falcon9.fuel = 100;
+falcon9.mass = 100;
+falcon9.div = $("falcon9");
+falcon9.engineOn = false;
+falcon9.orbitSuccess = false;
 
+const space = new Space;
+space.x = 50;
+space.y = 41;
+space.vx = 0;
+space.vy = 0;
+space.ax = 0.0015;
+space.ay = 0.0015;
+space.rx = 0;
+space.ry = 0;
+space.div = $("world");
 
-let spaceClicked = false;
-let engineOn = false;
+/**
+ * @param {{ keyCode: number; }} e
+ */
+const controllRocket = (e) => {
+    if(e.keyCode === 32){
+        // start engine
+    }
+    if(e.keyCode === 39){
+        // rotate right
+    }
+    if(e.keyCode === 37){
+        // rotate left
+    }
+}
 
 document.addEventListener("keydown", sjekkSpace);
 
@@ -74,10 +140,6 @@ function move(){
             outOfGas();
         }
     }, 50); 
-
-    engine.classList.remove("førStart");
-    void engine.offsetWidth;
-    engine.classList.add("etterStart");
     
 }
 
@@ -180,6 +242,8 @@ function outOfGas(){
         alert("Du er i bane");
     }
 }
+
+document.addEventListener("keydown", controllRocket);
 
 /**
  * Spiller kan styre rotasjonen til raketten slik at du går inn i bane den ene eller andre rettningen

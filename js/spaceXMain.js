@@ -8,12 +8,14 @@ const $ = (id) => document.getElementById(id);
 
 const engine = $("engine");
 
-// Globale variabler.
+// Globale intervaller:
 let accelerationX;
 let accelerationY;
 let moveX;
 let moveY;
 let fuelConsumption;
+let axOrbit;
+let orbit;
 let allIntervals = [];
 
 class Falcon9{
@@ -55,15 +57,19 @@ class Falcon9{
         if(this.orbitSuccess !== true){
             space.startDesending();
         }
+        this.engineOn = false;
     }
 
     crash(){
         this.div.innerHTML = "";
         this.div.classList.remove("falcon9Class");
+        void this.div.offsetWidth;
         this.div.classList.add("explosion");
         setTimeout(() => {
             this.div.classList.remove("explosion");
+            void this.div.offsetWidth;
             this.div.classList.add("falcon9Class");
+            stopIntervals();
         }, 500);
     }
 }
@@ -81,32 +87,46 @@ class Space{
 
     moveSpaceY(){
         accelerationY = setInterval(() => {
-            if(this.vy < 0.18){
-                this.vy -= this.ay;
+            if(this.vy < 2){
+                this.vy += this.ay;
             }
         }, 50);
         
         moveY = setInterval(() => {
             this.y += this.vy;
-            this.div.style.backgroundPositionY = `${this.y}%`;
+            this.div.style.top = `${this.y}%`;
         }, 10);
 
         allIntervals.push(accelerationY, moveY);
     }
 
     startDesending(){
-        allIntervals.push(accelerationY);
         accelerationY = setInterval(() => {
-            if(this.y < 41.4){
-                this.vy += this.ay;
+            if(this.y > -1288){
+                this.vy -= this.ay;
             }
             else{
-                if(this.vy > 0.05){
+                if(this.vy < -1){
                     falcon9.crash();
                 }
                 stopIntervals();
             }
+        }, 40);
+        allIntervals.push(accelerationY);
+    }
+
+    orbit(){
+        axOrbit = setInterval(() => {
+            if(this.vx < 0.005){
+                this.vx += this.ax;
+            }
+        }, 100);
+
+        orbit = setInterval(() => {
+            this.rx += this.vx;
+            this.div.style.transform = `rotate(${this.rx}deg)`;
         }, 50);
+        allIntervals.push(axOrbit, orbit);
     }
 }
 
@@ -120,11 +140,11 @@ falcon9.orbitSuccess = false;
 
 const space = new Space;
 space.x = 50;
-space.y = 41.3;
+space.y = -1288;
 space.vx = 0;
 space.vy = 0;
-space.ax = 0.0015;
-space.ay = 0.00008;
+space.ax = 0;
+space.ay = 0.005;
 space.rx = 0;
 space.ry = 0;
 space.div = $("world");
@@ -133,24 +153,38 @@ space.div = $("world");
  * @param {{ keyCode: number; }} e
  */
 const controllRocket = (e) => {
-    if(e.keyCode === 32){
-        if(falcon9.engineOn !== true){
-            falcon9.takeOff();
-            space.moveSpaceY();
+    switch(e.keyCode){
+        case 32:
+        {
+            if(falcon9.engineOn !== true){
+                falcon9.takeOff();
+                space.moveSpaceY();
+            }
+            break
         }
-    }
-    if(e.keyCode === 39){
+        case 39:
+        {
         // rotate right
-        if(falcon9.angle <= 85){
-            falcon9.angle += 5;
-            falcon9.rotate();
+            if(falcon9.angle <= 85 && falcon9.engineOn === true){
+                falcon9.angle += 5;
+                space.ax -= 0.0000005;
+                space.vy -= 0.005
+                falcon9.rotate();
+                space.orbit();
+            }
+            break;
         }
-    }
-    if(e.keyCode === 37){
-        // rotate left
-        if(falcon9.angle >= -85){
-            falcon9.angle -= 5;
-            falcon9.rotate();
+        case 37:
+        {
+            // rotate left
+            if(falcon9.angle >= -85 && falcon9.engineOn === true){
+                falcon9.angle -= 5;
+                space.ax += 0.0000005;
+                space.vy -= 0.005
+                falcon9.rotate();
+                space.orbit();
+            }
+            break;
         }
     }
 }

@@ -34,7 +34,7 @@ body{
     top: -1288%;
     width: 3500%;
     height: 3500%;
-    background-image: url("../Images/space\ compressed.png");
+    background-image: url("https://github.com/nathsten/SpaceXGame/raw/main/Images/space%20compressed.png");
     background-position: center;
     background-size: 100%;
     background-position-x: 50%;
@@ -43,12 +43,7 @@ body{
 #world{
     background-position-y: 50%;
     background-position-x: 50%;
-    /* animation: roter 4s infinite linear; */
 }
-
-/* @keyframes roter{
-    100%{transform: rotate(365deg);}
-} */
 
 .topRocketClass{
     position: absolute;
@@ -89,6 +84,7 @@ body{
     background-image: url("../Images/rocketGif.gif");
     background-repeat: no-repeat;
     background-size: 100%;
+    opacity: 0.2;
 }
 
 .topRocketClass>p{

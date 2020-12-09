@@ -7,6 +7,17 @@
 const $ = (id) => document.getElementById(id);
 
 const engine = $("engine");
+const speed = $("speed");
+
+// const worldDiv = $("world");
+
+// async function getBGI() {
+//     const getImg = await fetch('https://github.com/nathsten/SpaceXGame/raw/main/Images/space%20compressed.png');
+//     const img = await getImg.blob();
+//     worldDiv.stye.backgroundImage = URL.createObjectURL(img);
+// }
+
+// getBGI();
 
 // Globale intervaller:
 let accelerationX;
@@ -58,6 +69,7 @@ class Falcon9{
             space.startDesending();
         }
         this.engineOn = false;
+        renderControllCenter();
     }
 
     crash(){
@@ -81,6 +93,7 @@ class Space{
     vy = 0;
     ax = 0;
     ay = 0;
+    gy = 0;
     rx = 0;
     ry = 0;
     div = undefined;
@@ -95,7 +108,16 @@ class Space{
         moveY = setInterval(() => {
             this.y += this.vy;
             if(this.y > -1){
-                this.y = -150;
+                this.y = -180;
+            }
+            if(this.ay === 0 && this.y > -1280){
+                this.vy -= this.gy;
+            }
+            if(this.ay === 0 && this.y < -1290){
+                if(this.vy < -1){
+                    falcon9.crash();
+                }
+                stopIntervals();
             }
             this.div.style.top = `${this.y}%`;
         }, 10);
@@ -106,7 +128,7 @@ class Space{
     startDesending(){
         accelerationY = setInterval(() => {
             if(this.y > -1288){
-                this.vy -= this.ay;
+                this.vy -= this.gy;
                 clearInterval(axOrbit);
             }
             else{
@@ -148,10 +170,22 @@ space.y = -1288;
 space.vx = 0;
 space.vy = 0;
 space.ax = 0;
-space.ay = 0.004;
+/**
+ * @param {number} ay
+ */
+const updateSpaceVY = (ay) => {
+    space.ay = ay;
+}
+space.gy = 0.004
 space.rx = 0;
 space.ry = 0;
 space.div = $("world");
+
+speed.oninput = function() {
+    let ay = (this.value/20000);
+    engine.style.opacity = (this.value/100)
+    updateSpaceVY(ay);
+}
 
 /**
  * @param {{ keyCode: number; }} e
@@ -163,6 +197,7 @@ const controllRocket = (e) => {
             if(falcon9.engineOn !== true){
                 falcon9.takeOff();
                 space.moveSpaceY();
+                renderControllCenter();
             }
             break
         }
@@ -188,6 +223,19 @@ const controllRocket = (e) => {
                 falcon9.rotate();
                 space.orbit();
             }
+            break;
+        }
+        case 38:
+        {
+            speed.value -= -5;
+            updateSpaceVY(speed.value/20000);
+            break;
+        }
+
+        case 40:
+        {
+            speed.value -= 5;
+            updateSpaceVY(speed.value/20000);
             break;
         }
     }

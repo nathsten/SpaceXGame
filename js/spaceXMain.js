@@ -38,7 +38,7 @@ class Falcon9{
             if(this.fuel <= 0){
                 falcon9.outOffuel();
             }
-        }, 500);
+        }, 1500);
 
 
         engine.classList.remove("førStart");
@@ -87,13 +87,16 @@ class Space{
 
     moveSpaceY(){
         accelerationY = setInterval(() => {
-            if(this.vy < 2){
+            if(this.vy < 2.5){
                 this.vy += this.ay;
             }
         }, 50);
         
         moveY = setInterval(() => {
             this.y += this.vy;
+            if(this.y > -1){
+                this.y = -150;
+            }
             this.div.style.top = `${this.y}%`;
         }, 10);
 
@@ -104,6 +107,7 @@ class Space{
         accelerationY = setInterval(() => {
             if(this.y > -1288){
                 this.vy -= this.ay;
+                clearInterval(axOrbit);
             }
             else{
                 if(this.vy < -1){
@@ -117,7 +121,7 @@ class Space{
 
     orbit(){
         axOrbit = setInterval(() => {
-            if(this.vx < 0.005){
+            if(this.vx < 0.0025){
                 this.vx += this.ax;
             }
         }, 100);
@@ -144,7 +148,7 @@ space.y = -1288;
 space.vx = 0;
 space.vy = 0;
 space.ax = 0;
-space.ay = 0.005;
+space.ay = 0.004;
 space.rx = 0;
 space.ry = 0;
 space.div = $("world");

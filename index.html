@@ -21,7 +21,6 @@
 
     <div id="worldDiv" class="worldClassDiv">
         <div id="world" class="worldClass"></div>
-        </div>
             <div id="falcon9" class="falcon9Class">
                 <div id="topRocket" class="topRocketClass">
                     <p>SpaceX</p>
@@ -33,13 +32,17 @@
         <div id="controllCenter">
             <div id="speedDiv">
                 <input id="speed" type="range" value="0">
-                <div id="engineState">Engine: Off</div>
             </div>
         </div>
 
-        <!-- <div id="gui" class="guiClass">
-            <label><input type="range" id="fuel" class="fuelClass"></label>
-        </div> -->
+        <div id="display" class="displayClass">
+            <div id="displayData"></div>
+        </div>
+
+        <div id="map" class="mapClass">
+            <div id="miniRocket"></div>
+        </div>
+
     </div>
     
     <script src="/js/spaceXMain.js"></script>

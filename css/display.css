@@ -1,16 +1,23 @@
+#headerDiv{
+  position: absolute;
+  width: 40%;
+  text-align: center;
+  left: 30%;
+  top: 25px;
+  background-color: #4d4d4d;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.headerTxt{
+  color: white;
+}
+
 #speed{
     position: absolute;
     transform: rotate(-90deg);
-    left: -50px;
-    top: 500px;
-}
-
-#engineState{
-  position: absolute;
-  font-size: 1.5em;
-  left: 100px;
-  bottom: 40px;
-  color: white;
+    left: -100px;
+    top: 460px;
 }
 
 input[type=range] {
@@ -100,3 +107,59 @@ input[type=range] {
   input[type=range]:focus::-ms-fill-upper {
     background: #50555C;
   }
+
+.displayClass{
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border: solid #2D383A 2px;
+  right: 20px;
+  bottom: 20px;
+  border-radius: 20%;
+  background-color: #50555c9a;
+
+}
+
+#displayData{
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  top: 5%;
+  left: 5%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.displayClass>div>div{
+  font-size: 1.2em;
+  position: relative;
+  margin: 20px 0px 0px 20px;
+  color: white;
+}
+
+.mapClass{
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: solid #2D383A 2px;
+  border-radius: 50%;
+  top: 20px;
+  right: 20px;
+  background-image: url('../Images/minimap.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 150%;
+  background-position-x: 50%;
+  background-position-y: 50%;
+}
+
+#miniRocket{
+  position: absolute;
+  height: 10px;
+  width: 2px;
+  border-top-left-radius: 100%;
+  border-top-right-radius: 100%;
+  border-bottom-left-radius: 70%;
+  border-bottom-right-radius: 70%;
+  background-color: white;
+}

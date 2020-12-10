@@ -9,16 +9,6 @@ const $ = (id) => document.getElementById(id);
 const engine = $("engine");
 const speed = $("speed");
 
-// const worldDiv = $("world");
-
-// async function getBGI() {
-//     const getImg = await fetch('https://github.com/nathsten/SpaceXGame/raw/main/Images/space%20compressed.png');
-//     const img = await getImg.blob();
-//     worldDiv.stye.backgroundImage = URL.createObjectURL(img);
-// }
-
-// getBGI();
-
 // Globale intervaller:
 let accelerationX;
 let accelerationY;
@@ -39,6 +29,8 @@ class Falcon9{
 
     takeOff(){
         this.engineOn = true;
+        allStates["Engine"] = "On";
+        renderControllCenter();
         fuelConsumption = setInterval(() => {
             if(this.fuel >= 0){
                 this.fuel -= this.mass/100
@@ -68,7 +60,7 @@ class Falcon9{
         if(this.orbitSuccess !== true){
             space.startDesending();
         }
-        this.engineOn = false;
+        allStates["Engine"] = "Off";
         renderControllCenter();
     }
 
@@ -107,6 +99,8 @@ class Space{
         
         moveY = setInterval(() => {
             this.y += this.vy;
+            allStates["Speed"] = `${(this.vy * 100).toFixed(1)}m/s`;
+            renderControllCenter();
             if(this.y > -1){
                 this.y = -180;
             }
@@ -170,10 +164,10 @@ space.y = -1288;
 space.vx = 0;
 space.vy = 0;
 space.ax = 0;
-/**
+/** Updates the acceleration y
  * @param {number} ay
  */
-const updateSpaceVY = (ay) => {
+const updateSpaceAY = (ay) => {
     space.ay = ay;
 }
 space.gy = 0.004
@@ -184,7 +178,7 @@ space.div = $("world");
 speed.oninput = function() {
     let ay = (this.value/20000);
     engine.style.opacity = (this.value/100)
-    updateSpaceVY(ay);
+    updateSpaceAY(ay);
 }
 
 /**
@@ -228,14 +222,14 @@ const controllRocket = (e) => {
         case 38:
         {
             speed.value -= -5;
-            updateSpaceVY(speed.value/20000);
+            updateSpaceAY(speed.value/20000);
             break;
         }
 
         case 40:
         {
             speed.value -= 5;
-            updateSpaceVY(speed.value/20000);
+            updateSpaceAY(speed.value/20000);
             break;
         }
     }
@@ -246,12 +240,3 @@ const stopIntervals = () => {
 }
 
 document.addEventListener("keydown", controllRocket);
-/**
- * Spiller kan styre rotasjonen til raketten slik at du går inn i bane den ene eller andre rettningen
- * Når raketten beveger seg oppover så er det bakgrunnsposisjonen som endrer seg, ikke x og y possisjonen til raketten
- * Når raketten roterer så endrer det på akkselerasjon x som vil rotere bakgrunnsbildet i x rettning.
- * Dette må da på et vis gi raketten noen verdier som kan regnes frem til om du kommer i bane eller ei. 
- * 
- * For å komme i bane må akselerasjonen din (eller farten) i X rettning være mer enn 11.000 m/s, 
- * samt at du har en viss avstand fra jorden.
- */

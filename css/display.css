@@ -155,11 +155,15 @@ input[type=range] {
 
 #miniRocket{
   position: absolute;
-  height: 10px;
-  width: 2px;
-  border-top-left-radius: 100%;
-  border-top-right-radius: 100%;
-  border-bottom-left-radius: 70%;
-  border-bottom-right-radius: 70%;
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
   background-color: white;
+}
+
+.earthCenter{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0);
 }

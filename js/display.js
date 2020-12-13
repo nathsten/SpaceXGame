@@ -1,7 +1,8 @@
 // @ts-check
 
 const displayDiv = $("display");
-const displayDataDiv = $("displayData")
+const displayDataDiv = $("displayData");
+const map = $("map");
 
 let allStates = {
     "Engine": "Off",
@@ -9,7 +10,14 @@ let allStates = {
     "Gravity": "9.8m/s^2"
 }
 
-let allStatesArray = Object.keys(allStates)
+// Globale Variabler
+const mapRadius = 100;
+
+let allStatesArray = Object.keys(allStates);
+let accelerateMiniRocketY;
+let accelerateMiniRocketX;
+let moveMiniRocketY;
+let moveMiniRocketX;
 
 /** Updates info on display and in the controll center
  * @returns {void}
@@ -50,15 +58,46 @@ class minimapRocket{
         this.div.style.left = `${this.x}px`;
         this.div.style.top = `${this.y}px`;
     }
+
+    moveMiniRocket(){
+        accelerateMiniRocketY = setInterval(() => {
+            this.vy += this.ax;
+        }, 50);
+
+        moveMiniRocketY = setInterval(() => {
+            this.y -= this.vy;
+            if(this.x - mapRadius <= 99){
+                // x = radius - something with y
+            }
+            if(this.y + mapRadius <= 99){
+                // y = radius - something with x
+                this.y = 1;
+            }
+            this.div.style.top = `${this.y}px`;
+        }, 10);
+    }
 }
 
 const miniRocket = new minimapRocket;
-miniRocket.x = 99;
-miniRocket.y = 72;
+miniRocket.x = 98;
+miniRocket.y = 77;
 miniRocket.vx = 0;
 miniRocket.vy = 0;
-miniRocket.ax = 0;
+/**
+ * @param {number} ay
+ */
+const updateMiniRocketAY = (ay) => {
+    miniRocket.ax = ay;
+}
 miniRocket.ay = 0;
 miniRocket.r = 0;
 miniRocket.div = $("miniRocket");
 miniRocket.render();
+
+const earthCenter = new minimapRocket;
+earthCenter.x = 99.5;
+earthCenter.y = 99.5;
+earthCenter.div = document.createElement("div");
+earthCenter.div.className = "earthCenter";
+map.append(earthCenter.div);
+earthCenter.render();

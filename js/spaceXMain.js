@@ -179,6 +179,7 @@ speed.oninput = function() {
     let ay = (this.value/20000);
     engine.style.opacity = (this.value/100)
     updateSpaceAY(ay);
+    updateMiniRocketAY(ay/40);
 }
 
 /**
@@ -192,6 +193,7 @@ const controllRocket = (e) => {
                 falcon9.takeOff();
                 space.moveSpaceY();
                 renderControllCenter();
+                miniRocket.moveMiniRocket();
             }
             break
         }

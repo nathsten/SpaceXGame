@@ -7,7 +7,8 @@ const map = $("map");
 let allStates = {
     "Engine": "Off",
     "Speed": "0m/s",
-    "Gravity": "9.8m/s^2"
+    "Fuel": "100%",
+    "Altitude": "0m"
 }
 
 // Globale Variabler

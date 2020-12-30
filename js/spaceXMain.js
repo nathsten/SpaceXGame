@@ -17,6 +17,7 @@ let moveY;
 let fuelConsumption;
 let axOrbit;
 let orbit;
+let spaceExtentions = 0;
 let allIntervals = [];
 
 class Falcon9{
@@ -94,18 +95,26 @@ class Space{
         accelerationY = setInterval(() => {
             if(this.vy < 2.5){
                 this.vy += this.ay;
+                if(this.y > -1288){
+                    this.vy -= ((this.gy * this.ay)*100);
+                }
             }
         }, 50);
         
         moveY = setInterval(() => {
             this.y += this.vy;
-            allStates["Speed"] = `${(this.vy * 100).toFixed(1)}m/s`;
+            allStates["Speed"] = `${Math.abs(this.vy * 300).toFixed(1)}m/s`;
             renderControllCenter();
             if(this.y > -1){
                 this.y = -180;
+                spaceExtentions += 1;
             }
             if(this.ay === 0 && this.y > -1280){
                 this.vy -= this.gy;
+                if(this.y < -180 && spaceExtentions > 0){
+                    this.y = -1;
+                    spaceExtentions -= 1;
+                }
             }
             if(this.ay === 0 && this.y < -1290){
                 if(this.vy < -1){
@@ -122,6 +131,10 @@ class Space{
     startDesending(){
         accelerationY = setInterval(() => {
             if(this.y > -1288){
+                if(this.y < -180 && spaceExtentions > 0){
+                    this.y = -1;
+                    spaceExtentions -= 1;
+                }
                 this.vy -= this.gy;
                 clearInterval(axOrbit);
             }
@@ -176,7 +189,7 @@ space.ry = 0;
 space.div = $("world");
 
 speed.oninput = function() {
-    let ay = (this.value/20000);
+    let ay = (this.value/25000);
     engine.style.opacity = (this.value/100)
     updateSpaceAY(ay);
     updateMiniRocketAY(ay/40);

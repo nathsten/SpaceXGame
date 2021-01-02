@@ -34,15 +34,17 @@ class Falcon9{
         renderControllCenter();
         fuelConsumption = setInterval(() => {
             if(this.fuel >= 0){
-                this.fuel -= this.mass/100
+                this.fuel -= (space.ay * 500) * (this.mass/1500);
+                allStates["Fuel"] = String((this.fuel).toFixed(1)) + '%';
+                renderControllCenter();
             }
             if(this.mass >= 250){
-                this.mass -= 75;
+                this.mass -= 15;
             }
             if(this.fuel <= 0){
                 falcon9.outOffuel();
             }
-        }, 1500);
+        }, 100);
 
 
         engine.classList.remove("førStart");
@@ -96,7 +98,11 @@ class Space{
             if(this.vy < 2.5){
                 this.vy += this.ay;
                 if(this.y > -1288){
-                    this.vy -= ((this.gy * this.ay)*100);
+                    this.vy -= (this.gy - this.ay);
+                    if(this.y < -180 && spaceExtentions > 0){
+                        this.y = -1;
+                        spaceExtentions -= 1;
+                    }
                 }
             }
         }, 50);
@@ -108,13 +114,6 @@ class Space{
             if(this.y > -1){
                 this.y = -180;
                 spaceExtentions += 1;
-            }
-            if(this.ay === 0 && this.y > -1280){
-                this.vy -= this.gy;
-                if(this.y < -180 && spaceExtentions > 0){
-                    this.y = -1;
-                    spaceExtentions -= 1;
-                }
             }
             if(this.ay === 0 && this.y < -1290){
                 if(this.vy < -1){
@@ -135,7 +134,7 @@ class Space{
                     this.y = -1;
                     spaceExtentions -= 1;
                 }
-                this.vy -= this.gy;
+                this.vy -= this.gy/10;
                 clearInterval(axOrbit);
             }
             else{

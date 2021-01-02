@@ -19,7 +19,8 @@ body{
     top: -1288%;
     width: 3500%;
     height: 3500%;
-    background-image: url("https://github.com/nathsten/SpaceXGame/raw/main/Images/spaceCompressed.png");
+    /* background-image: url("https://github.com/nathsten/SpaceXGame/raw/main/Images/spaceCompressed.png"); */
+    background-image: url('/Images/spaceCompressed.png');
     background-position: center;
     background-size: 100%;
     background-position-x: 50%;

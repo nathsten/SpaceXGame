@@ -13,6 +13,19 @@
   color: white;
   font-weight: 350;
 }
+#notFinished{
+  position: absolute;
+  width: 140px;
+  height: 30px;
+  font-size: 1.4em;
+  line-height: 30px;
+  border-radius: 10px;
+  transform: rotate(-20deg);
+  top: 10px;
+  left: -20px;
+  box-shadow: #000000 3px 3px 5px;
+  background-color: red;
+}
 
 #speed{
     position: absolute;
